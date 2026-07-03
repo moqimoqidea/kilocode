@@ -181,6 +181,15 @@ describe("session routed model", () => {
       providerID: ProviderID.kilo,
       modelID: ModelID.make("openai/gpt-5.5-20260423"),
     })
+    expect(
+      KiloRoutedModel.readSession(meta, {
+        providerID: ProviderID.kilo,
+        modelID: "kilo-auto/efficient",
+      }),
+    ).toEqual({
+      providerID: ProviderID.kilo,
+      modelID: ModelID.make("openai/gpt-5.5-20260423"),
+    })
 
     expect(
       KiloRoutedModel.readAuto(meta, {
