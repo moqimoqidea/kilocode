@@ -70,4 +70,17 @@ export namespace KiloRoutedModel {
     if (!input.modelID.toLowerCase().includes("fable")) return undefined
     return different(meta, input)
   }
+
+  export function readSession(
+    meta: ProviderMetadata | undefined,
+    input: { providerID: ProviderID; modelID: string; selected?: string },
+  ) {
+    const auto = readAuto(meta, input)
+    if (auto) return auto
+    if (!input.modelID.toLowerCase().includes("fable")) return undefined
+    const model = read(meta, input.providerID)
+    if (!model) return undefined
+    if (model.modelID === input.modelID || model.modelID === input.selected) return undefined
+    return model
+  }
 }
