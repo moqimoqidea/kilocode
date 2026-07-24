@@ -87,42 +87,17 @@
 ## [7.0.10] - 2026-07-24
 
 ### Added
-- feat(cli): emit session queue state for remote clients by @iscekic in https://github.com/Kilo-Org/kilocode/pull/12297
-- feat(cli): add notify_user push-notification tool by @iscekic in https://github.com/Kilo-Org/kilocode/pull/12392
-- feat(cli): accept mobile file attachments in remote sessions by @iscekic in https://github.com/Kilo-Org/kilocode/pull/12394
-- feat(vscode): add searchable session tab switcher by @hdcodedev in https://github.com/Kilo-Org/kilocode/pull/12462
-- feat(opencode): show token throughput metrics by @Githubguy132010 in https://github.com/Kilo-Org/kilocode/pull/12434
-- feat(vscode): support deleting queued chat messages by @hdcodedev in https://github.com/Kilo-Org/kilocode/pull/12370
-- feat: reference past chats with @-mentions by @marius-kilocode in https://github.com/Kilo-Org/kilocode/pull/12456
-- feat(jetbrains): render edit tool diff previews in session view by @kirillk in https://github.com/Kilo-Org/kilocode/pull/12491
-- feat(agent-manager): filter sessions by worktree by @marius-kilocode in https://github.com/Kilo-Org/kilocode/pull/12509
-- feat: explain tool auto-approval by @bagatao-anaconda in https://github.com/Kilo-Org/kilocode/pull/12494
+
+- Render edit, write, and apply-patch tool results as expandable diff previews with clickable file links, change counts, syntax-highlighted diffs, and clearer multi-file patch sections.
 
 ### Fixed
-- fix(vscode): show clear warning when reload is blocked by a running session by @marius-kilocode in https://github.com/Kilo-Org/kilocode/pull/12454
-- fix(cli): recover remote session connection that silently dies and never reconnects by @iscekic in https://github.com/Kilo-Org/kilocode/pull/12393
-- fix(cli): ignore late tool input events by @lambertjosh in https://github.com/Kilo-Org/kilocode/pull/12459
-- fix(dev): preserve AWS profile credential loading by @marius-kilocode in https://github.com/Kilo-Org/kilocode/pull/12484
-- fix: show Vercel ID for incomplete responses by @chrarnoldus in https://github.com/Kilo-Org/kilocode/pull/12488
-- fix(cli): harden plan edit permissions by @johnnyeric in https://github.com/Kilo-Org/kilocode/pull/12458
-- fix: avoid write-on-read mutation of config file by @rakshith1928 in https://github.com/Kilo-Org/kilocode/pull/11940
-- fix(vscode): ignore Enter when no list result is highlighted by @hdcodedev in https://github.com/Kilo-Org/kilocode/pull/12486
-- fix(cli): bound time-to-first-content by request timeout, not the idle watchdog by @iscekic in https://github.com/Kilo-Org/kilocode/pull/12481
-- fix(core): strict OpenAI-compatible compaction failure caused by maxOutputTokens leak into provider options by @rakshith1928 in https://github.com/Kilo-Org/kilocode/pull/12485
-- fix: recover from read-only database files at startup by @johnnyeric in https://github.com/Kilo-Org/kilocode/pull/12508
-- fix: preserve unexpected provider finish reasons by @marius-kilocode in https://github.com/Kilo-Org/kilocode/pull/12496
-- fix(ui): align queued message remove button with message action buttons by @marius-kilocode in https://github.com/Kilo-Org/kilocode/pull/12513
-- fix: activate plan handoff sessions and retry recovered question replies by @johnnyeric in https://github.com/Kilo-Org/kilocode/pull/12511
+
+- Improve session performance for large transcripts.
+- Fix Kilo Core failures caused by strict OpenAI-compatible compaction requests, unexpected provider finish reasons, read-only database files at startup, AWS profile credentials, and config files being rewritten just by reading them.
 
 ### Changed
-- release(jetbrains): v7.0.9 by @kilo-maintainer[bot] in https://github.com/Kilo-Org/kilocode/pull/12440
-- OpenCode v1.17.5 by @marius-kilocode in https://github.com/Kilo-Org/kilocode/pull/12404
-- Cloud Agent - Add kilo cloud command for running asynchronous cloud agent tasks by @eshurakov in https://github.com/Kilo-Org/kilocode/pull/11849
-- chore(jetbrains): bump CLI pin to v7.4.15 by @kilo-maintainer[bot] in https://github.com/Kilo-Org/kilocode/pull/12455
-- refactor(cli): shared-process remote sessions with safe per-session exit by @iscekic in https://github.com/Kilo-Org/kilocode/pull/12327
-- revert(cli): restore opt-in stream idle timeouts by @marius-kilocode in https://github.com/Kilo-Org/kilocode/pull/12497
-- docs: fix Fireworks AI pricing link broken by bot detection by @marius-kilocode in https://github.com/Kilo-Org/kilocode/pull/12510
 
+- Update the JetBrains CLI pin from Kilo Core 7.4.13 to 7.4.15.
 
 ## [7.0.9] - 2026-07-21
 
