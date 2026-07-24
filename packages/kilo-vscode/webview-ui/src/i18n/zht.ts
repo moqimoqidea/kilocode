@@ -640,6 +640,7 @@ export const dict = {
   "ui.approval.source.global": "由你的全域設定",
   "ui.approval.source.project": "由專案設定",
   "ui.approval.source.yolo": "由自動核准（YOLO）模式",
+  "ui.approval.source.session": "由工作階段自動核准規則",
   "ui.approval.source.default": "預設",
   "notification.question.title": "問題",
   "notification.question.description": "{{sessionTitle}}（{{projectName}}）有一個問題",

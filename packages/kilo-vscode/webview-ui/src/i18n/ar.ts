@@ -649,6 +649,7 @@ export const dict = {
   "ui.approval.source.global": "بواسطة الإعداد العام",
   "ui.approval.source.project": "بواسطة إعداد المشروع",
   "ui.approval.source.yolo": "بواسطة وضع الموافقة التلقائية (YOLO)",
+  "ui.approval.source.session": "بواسطة قاعدة موافقة تلقائية للجلسة",
   "ui.approval.source.default": "افتراضيًا",
   "notification.question.title": "سؤال",
   "notification.question.description": "{{sessionTitle}} في {{projectName}} لديه سؤال",

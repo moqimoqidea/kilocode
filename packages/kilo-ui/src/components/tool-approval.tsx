@@ -8,7 +8,7 @@ import { createContext, useContext, Show, type Accessor, type ParentProps } from
  * free of any i18n key coupling.
  */
 export type ToolApproval = {
-  source: "agent" | "global" | "project" | "yolo" | "manual" | "default"
+  source: "agent" | "global" | "project" | "yolo" | "session" | "manual" | "default"
   agent?: string
   rule?: { permission: string; pattern: string; action: string }
 }
@@ -21,7 +21,7 @@ export type ToolApprovalDisplay = {
   rule?: string
 }
 
-const SOURCE_KEYS = ["agent", "global", "project", "yolo", "manual", "default"] as const
+const SOURCE_KEYS = ["agent", "global", "project", "yolo", "session", "manual", "default"] as const
 
 const Context = createContext<Accessor<ToolApprovalDisplay | undefined>>(() => undefined)
 

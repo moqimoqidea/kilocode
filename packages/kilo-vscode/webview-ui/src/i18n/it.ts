@@ -536,6 +536,7 @@ export const dict = {
   "ui.approval.source.global": "dalla configurazione globale",
   "ui.approval.source.project": "dalla configurazione del progetto",
   "ui.approval.source.yolo": "dalla modalità di approvazione automatica (YOLO)",
+  "ui.approval.source.session": "da una regola di approvazione automatica della sessione",
   "ui.approval.source.default": "per impostazione predefinita",
   "notification.question.title": "Domanda",
   "notification.question.description": "{{sessionTitle}} in {{projectName}} ha una domanda",

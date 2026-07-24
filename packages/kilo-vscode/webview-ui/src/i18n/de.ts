@@ -670,6 +670,7 @@ export const dict = {
   "ui.approval.source.global": "durch deine globale Konfiguration",
   "ui.approval.source.project": "durch die Projektkonfiguration",
   "ui.approval.source.yolo": "durch den Auto-Genehmigungsmodus (YOLO)",
+  "ui.approval.source.session": "durch eine Sitzungs-Auto-Genehmigungsregel",
   "ui.approval.source.default": "standardmäßig",
   "notification.question.title": "Frage",
   "notification.question.description": "{{sessionTitle}} in {{projectName}} hat eine Frage",

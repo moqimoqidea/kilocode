@@ -10,10 +10,15 @@ import type { Permission } from "@/permission"
  */
 export namespace PermissionProvenance {
   /** Where the deciding rule came from. */
-  export type Source = "agent" | "global" | "project" | "yolo" | "manual" | "default"
+  export type Source = "agent" | "global" | "project" | "yolo" | "session" | "manual" | "default"
 
   /** A rule optionally carrying its origin. `source` is runtime-only, never persisted. */
   export type SourcedRule = Permission.Rule & { source?: Source }
+
+  /** True for the broad allow rule that auto-approve (YOLO) mode installs. */
+  function isYolo(rule: Permission.Rule) {
+    return rule.permission === "*" && rule.pattern === "*" && rule.action === "allow"
+  }
 
   /** The approval recorded onto a tool call's metadata. */
   export type Approval = {
@@ -36,6 +41,22 @@ export namespace PermissionProvenance {
   }
 
   /**
+   * Tag agent-owned rules with their config origin (global/project) or the agent default.
+   * These come from the agent's merged permission set.
+   */
+  export function tagAgent(ruleset: Permission.Ruleset, origins: Origins): SourcedRule[] {
+    return ruleset.map((rule) => ({ ...rule, source: configSource(rule.permission, origins) }))
+  }
+
+  /**
+   * Tag session-scoped rules. The broad allow rule is auto-approve (YOLO) mode, which is stored
+   * on the session; any other session rule is an explicit per-session runtime toggle.
+   */
+  export function tagSession(ruleset: Permission.Ruleset): SourcedRule[] {
+    return ruleset.map((rule) => ({ ...rule, source: isYolo(rule) ? "yolo" : "session" }))
+  }
+
+  /**
    * Preserve an existing `approval` marker when a tool part's metadata is replaced.
    *
    * The approval is written once during `ask()`, but tools freely overwrite `state.metadata`
@@ -50,15 +71,18 @@ export namespace PermissionProvenance {
     return { ...next, approval: prev.approval }
   }
 
-  /** Classify the winning rule of an auto-approval into an Approval payload. */
+  /**
+   * Classify the winning rule of an auto-approval into an Approval payload.
+   *
+   * Rules assembled by `askPermission` are tagged with their true origin, so we read the tag
+   * directly. An untagged winner can only come from the saved global approvals that `Permission.ask`
+   * merges internally: the broad allow rule there is YOLO mode, otherwise fall back to config origin.
+   */
   export function classify(input: { rule?: Permission.Rule; agent: string; origins: Origins }): Approval {
     const rule = input.rule
     if (!rule) return { source: "default" }
-    const tagged = (rule as SourcedRule).source
     const source =
-      tagged ??
-      // Untagged winning rules were contributed inside Permission.ask by saved global approvals.
-      (rule.permission === "*" && rule.pattern === "*" ? "yolo" : configSource(rule.permission, input.origins))
+      (rule as SourcedRule).source ?? (isYolo(rule) ? "yolo" : configSource(rule.permission, input.origins))
     return {
       source,
       ...(source === "agent" ? { agent: input.agent } : {}),

@@ -660,6 +660,7 @@ export const dict = {
   "ui.approval.source.global": "genel yapılandırmanız tarafından",
   "ui.approval.source.project": "proje yapılandırması tarafından",
   "ui.approval.source.yolo": "otomatik onay (YOLO) modu tarafından",
+  "ui.approval.source.session": "bir oturum otomatik onay kuralı tarafından",
   "ui.approval.source.default": "varsayılan olarak",
   "notification.question.title": "Soru",
   "notification.question.description": "{{projectName}} içindeki {{sessionTitle}} bir soru soruyor",

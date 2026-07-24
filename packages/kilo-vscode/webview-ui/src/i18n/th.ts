@@ -654,6 +654,7 @@ export const dict = {
   "ui.approval.source.global": "โดยการตั้งค่าส่วนกลาง",
   "ui.approval.source.project": "โดยการตั้งค่าโปรเจกต์",
   "ui.approval.source.yolo": "โดยโหมดอนุมัติอัตโนมัติ (YOLO)",
+  "ui.approval.source.session": "โดยกฎอนุมัติอัตโนมัติของเซสชัน",
   "ui.approval.source.default": "ตามค่าเริ่มต้น",
   "notification.question.title": "คำถาม",
   "notification.question.description": "{{sessionTitle}} ใน {{projectName}} มีคำถาม",

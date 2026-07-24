@@ -656,6 +656,7 @@ export const dict = {
   "ui.approval.source.global": "전역 설정에 의해",
   "ui.approval.source.project": "프로젝트 설정에 의해",
   "ui.approval.source.yolo": "자동 승인(YOLO) 모드에 의해",
+  "ui.approval.source.session": "세션 자동 승인 규칙에 의해",
   "ui.approval.source.default": "기본값으로",
   "notification.question.title": "질문",
   "notification.question.description": "{{projectName}}의 {{sessionTitle}}에서 질문이 있습니다",

@@ -54,6 +54,39 @@ describe("PermissionProvenance", () => {
   test("classify without a rule reports the ask fallback", () => {
     expect(PermissionProvenance.classify({ agent: "build", origins: undefined })).toEqual({ source: "default" })
   })
+
+  test("tagAgent stamps each rule with its config origin, defaulting to agent", () => {
+    const tagged = PermissionProvenance.tagAgent(
+      [
+        { permission: "bash", pattern: "*", action: "allow" },
+        { permission: "edit", pattern: "*", action: "allow" },
+      ],
+      { bash: "local" },
+    )
+    expect(tagged.map((r) => r.source)).toEqual(["project", "agent"])
+  })
+
+  test("tagSession marks the broad allow as yolo and other rules as session", () => {
+    const tagged = PermissionProvenance.tagSession([
+      { permission: "*", pattern: "*", action: "allow" },
+      { permission: "bash", pattern: "git *", action: "allow" },
+    ])
+    expect(tagged.map((r) => r.source)).toEqual(["yolo", "session"])
+  })
+
+  test("a tagged agent rule wins over an untagged duplicate and is not misread as yolo", () => {
+    // Regression: guardPermissions re-appends agent rules for ask/plan/architect; every rule that
+    // reaches evaluate must be tagged so the broad agent allow is not mistaken for YOLO mode.
+    const agent = PermissionProvenance.tagAgent([{ permission: "*", pattern: "*", action: "allow" }], undefined)
+    const session = PermissionProvenance.tagSession([])
+    const ruleset = [...agent, ...session, ...agent] // mirrors merge(tagged, guardPermissions(...)) for a mode
+    const winner = Permission.evaluate("bash", "echo hi", ruleset)
+    expect(PermissionProvenance.classify({ rule: winner, agent: "plan", origins: undefined })).toEqual({
+      source: "agent",
+      agent: "plan",
+      rule: { permission: "*", pattern: "*", action: "allow" },
+    })
+  })
 })
 
 describe("PermissionProvenance.carryApproval", () => {
@@ -133,5 +166,46 @@ describe("askPermission returns provenance", () => {
       { edit: "local" },
     )
     expect(out.source).toBe("project")
+  })
+
+  test("every rule passed to ask is tagged, even the guardPermissions re-append for modes", async () => {
+    // Regression guard: a plan/ask/architect agent's rules are duplicated by guardPermissions.
+    // Capture the ruleset askPermission builds and confirm no rule reaches evaluate untagged.
+    const captured: Permission.Ruleset[] = []
+    const planAgent: Agent.Info = {
+      name: "plan",
+      mode: "primary",
+      permission: Permission.fromConfig({ bash: "allow" }),
+      options: {},
+    }
+    const planSession = { id: sessionID, permission: [{ permission: "edit", pattern: "*", action: "deny" }] } as unknown as Session.Info
+    await Effect.gen(function* () {
+      yield* KiloSessionPrompt.askPermission({
+        permission: yield* Permission.Service,
+        agents: yield* Agent.Service,
+        sessions: yield* Session.Service,
+        agent: planAgent,
+        session: planSession,
+        request: { sessionID, permission: "bash", patterns: ["echo hi"], always: [], metadata: {} },
+      })
+    }).pipe(
+      Effect.provide(
+        Layer.mergeAll(
+          Layer.mock(Permission.Service)({
+            ask: (req) =>
+              Effect.sync(() => {
+                captured.push(req.ruleset)
+                return { manual: false } as const
+              }),
+          }),
+          Layer.mock(Agent.Service)({ get: () => Effect.succeed(planAgent) }),
+          Layer.mock(Session.Service)({ get: () => Effect.succeed(planSession) }),
+        ),
+      ),
+      Effect.runPromise,
+    )
+    const ruleset = captured[0]
+    expect(ruleset.length).toBeGreaterThan(0)
+    expect(ruleset.every((rule) => (rule as PermissionProvenance.SourcedRule).source !== undefined)).toBe(true)
   })
 })

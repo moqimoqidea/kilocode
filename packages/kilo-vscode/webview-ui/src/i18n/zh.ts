@@ -641,6 +641,7 @@ export const dict = {
   "ui.approval.source.global": "由你的全局配置",
   "ui.approval.source.project": "由项目配置",
   "ui.approval.source.yolo": "由自动批准（YOLO）模式",
+  "ui.approval.source.session": "由会话自动批准规则",
   "ui.approval.source.default": "默认",
   "notification.question.title": "问题",
   "notification.question.description": "{{sessionTitle}}（{{projectName}}）有一个问题",

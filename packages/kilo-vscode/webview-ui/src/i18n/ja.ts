@@ -656,6 +656,7 @@ export const dict = {
   "ui.approval.source.global": "グローバル設定によって",
   "ui.approval.source.project": "プロジェクト設定によって",
   "ui.approval.source.yolo": "自動承認（YOLO）モードによって",
+  "ui.approval.source.session": "セッションの自動承認ルールによって",
   "ui.approval.source.default": "デフォルトで",
   "notification.question.title": "質問",
   "notification.question.description": "{{projectName}} の {{sessionTitle}} から質問があります",

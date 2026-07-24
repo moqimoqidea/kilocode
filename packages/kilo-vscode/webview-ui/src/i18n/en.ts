@@ -657,6 +657,7 @@ export const dict = {
   "ui.approval.source.global": "by your global config",
   "ui.approval.source.project": "by the project config",
   "ui.approval.source.yolo": "by auto-approve (YOLO) mode",
+  "ui.approval.source.session": "by a session auto-approve rule",
   "ui.approval.source.default": "by default",
   "notification.question.title": "Question",
   "notification.question.description": "{{sessionTitle}} in {{projectName}} has a question",

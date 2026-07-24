@@ -660,6 +660,7 @@ export const dict = {
   "ui.approval.source.global": "вашей глобальной конфигурацией",
   "ui.approval.source.project": "конфигурацией проекта",
   "ui.approval.source.yolo": "режимом автоодобрения (YOLO)",
+  "ui.approval.source.session": "правилом автоодобрения сессии",
   "ui.approval.source.default": "по умолчанию",
   "notification.question.title": "Вопрос",
   "notification.question.description": "У {{sessionTitle}} в {{projectName}} есть вопрос",

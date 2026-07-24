@@ -240,16 +240,17 @@ export namespace KiloSessionPrompt {
       .get(input.session.id)
       .pipe(Effect.catchCause(() => Effect.succeed(input.session)))
 
-    // kilocode_change start - tag agent rules with provenance so the winning rule reports its source
-    const tagged: PermissionProvenance.SourcedRule[] = agent.permission.map((rule) => ({
-      ...rule,
-      source: PermissionProvenance.configSource(rule.permission, input.origins),
-    }))
-    const outcome = yield* input.permission.ask({
-      ...input.request,
-      ruleset: Permission.merge(tagged, guardPermissions({ agent, session })),
-      hardRuleset: hardPermissions({ agent }),
-    })
+    // kilocode_change start - tag every rule with its true origin before merging, so the winning
+    // rule (chosen by findLast) reports the correct source instead of classify() having to guess.
+    // guardPermissions re-appends agent.permission for ask/plan/architect modes and prepends
+    // session.permission, so tag those inputs up front rather than the outer copy alone.
+    const taggedAgent = PermissionProvenance.tagAgent(agent.permission, input.origins)
+    const taggedSession = PermissionProvenance.tagSession(session.permission ?? [])
+    const ruleset = Permission.merge(
+      taggedAgent,
+      guardPermissions({ agent: { name: agent.name, permission: taggedAgent }, session: { permission: taggedSession } }),
+    )
+    const outcome = yield* input.permission.ask({ ...input.request, ruleset, hardRuleset: hardPermissions({ agent }) })
     if (outcome.manual) return { source: "manual" } satisfies PermissionProvenance.Approval
     return PermissionProvenance.classify({ rule: outcome.rule, agent: agent.name, origins: input.origins })
     // kilocode_change end

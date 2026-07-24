@@ -661,6 +661,7 @@ export const dict = {
   "ui.approval.source.global": "globalnom konfiguracijom",
   "ui.approval.source.project": "konfiguracijom projekta",
   "ui.approval.source.yolo": "režimom automatskog odobravanja (YOLO)",
+  "ui.approval.source.session": "pravilom automatskog odobravanja sesije",
   "ui.approval.source.default": "podrazumevano",
   "notification.question.title": "Pitanje",
   "notification.question.description": "{{sessionTitle}} u {{projectName}} ima pitanje",

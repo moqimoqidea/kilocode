@@ -663,6 +663,7 @@ export const dict = {
   "ui.approval.source.global": "door je globale configuratie",
   "ui.approval.source.project": "door de projectconfiguratie",
   "ui.approval.source.yolo": "door de automatische goedkeuringsmodus (YOLO)",
+  "ui.approval.source.session": "door een sessie-automatische-goedkeuringsregel",
   "ui.approval.source.default": "standaard",
   "notification.question.title": "Vraag",
   "notification.question.description": "{{sessionTitle}} in {{projectName}} heeft een vraag",

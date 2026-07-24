@@ -663,6 +663,7 @@ export const dict = {
   "ui.approval.source.global": "av den globale konfigurasjonen",
   "ui.approval.source.project": "av prosjektkonfigurasjonen",
   "ui.approval.source.yolo": "av automatisk godkjenning (YOLO)",
+  "ui.approval.source.session": "av en økt-autogodkjenningsregel",
   "ui.approval.source.default": "som standard",
   "notification.question.title": "Spørsmål",
   "notification.question.description": "{{sessionTitle}} i {{projectName}} har et spørsmål",
