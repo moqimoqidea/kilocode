@@ -74,4 +74,18 @@ describe("parseKiloPassState", () => {
       global.fetch = prev
     }
   })
+
+  test("silently ignores unsuccessful responses", async () => {
+    const prev = global.fetch
+    const warn = spyOn(console, "warn").mockImplementation(() => undefined)
+    global.fetch = mock(() => Promise.resolve(new Response(null, { status: 503 })))
+
+    try {
+      await expect(fetchKiloPassState("token")).resolves.toBeNull()
+      expect(warn).not.toHaveBeenCalled()
+    } finally {
+      warn.mockRestore()
+      global.fetch = prev
+    }
+  })
 })
