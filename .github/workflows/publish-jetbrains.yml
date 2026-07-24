@@ -201,6 +201,7 @@ jobs:
           NOTES: packages/kilo-jetbrains/build/release-notes.md
 
       - name: Dispatch bundled GitHub release build
+        continue-on-error: true
         run: |
           gh workflow run publish-jetbrains-bundled.yml \
             --repo "$GITHUB_REPOSITORY" \

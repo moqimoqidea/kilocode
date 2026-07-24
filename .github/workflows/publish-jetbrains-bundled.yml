@@ -187,17 +187,14 @@ jobs:
       - name: Resolve bundled asset URL
         id: asset
         run: |
-          url="$(python3 - <<'PY'
-          import os
-          import urllib.parse
-          repo = os.environ["GITHUB_REPOSITORY"]
-          tag = urllib.parse.quote(os.environ["TAG"], safe="")
-          asset = urllib.parse.quote(os.environ["ASSET"], safe="")
-          print(f"https://github.com/{repo}/releases/download/{tag}/{asset}")
-          PY
-          )"
+          url="$(gh release view "$TAG" --json assets --jq '.assets[] | select(.name == env.ASSET) | .url' --repo "$GITHUB_REPOSITORY")"
+          if [[ -z "$url" ]]; then
+            echo "Could not resolve GitHub Release URL for $ASSET" >&2
+            exit 1
+          fi
           echo "url=$url" >> "$GITHUB_OUTPUT"
         env:
+          GH_TOKEN: ${{ github.token }}
           TAG: ${{ needs.validate.outputs.tag }}
           ASSET: ${{ steps.archive.outputs.asset }}
 

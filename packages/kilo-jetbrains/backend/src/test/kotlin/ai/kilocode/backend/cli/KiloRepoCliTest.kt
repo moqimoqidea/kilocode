@@ -54,6 +54,24 @@ class KiloRepoCliTest {
     }
 
     @Test
+    fun `prunes stale bundled cli versions after resolve`() = runBlocking {
+        val root = File(dir, "7.4.11")
+        val stale = File(dir, "7.4.10")
+        File(stale, "old").apply {
+            parentFile.mkdirs()
+            writeText("old")
+        }
+
+        val cli = KiloRepoCli.extract(false, root, cleanup = true) {
+            ByteArrayInputStream(archive("current"))
+        }
+
+        assertTrue(cli.isFile)
+        assertFalse(stale.exists())
+        assertTrue(root.isDirectory)
+    }
+
+    @Test
     fun `rejects archive entries that escape root`() = runBlocking {
         val ex = assertFailsWith<IllegalStateException> {
             KiloRepoCli.extract(false, dir) { ByteArrayInputStream(archive(entry = "../../../bad")) }
