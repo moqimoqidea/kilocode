@@ -1,5 +1,5 @@
 # kilocode_change - new file
-name: bundle-jetbrains
+name: publish-jetbrains-bundled
 
 on:
   workflow_dispatch:
@@ -14,7 +14,7 @@ on:
         type: string
 
 concurrency:
-  group: bundle-jetbrains-pr-${{ inputs.pr }}
+  group: publish-jetbrains-bundled-pr-${{ inputs.pr }}
   cancel-in-progress: false
 
 permissions:

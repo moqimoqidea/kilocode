@@ -132,7 +132,7 @@ Publishing behavior:
 
 The workflow checks out `jetbrains/v<version>` for verification, signing, and Marketplace publishing. It overlays the reviewed `packages/kilo-jetbrains/gradle.properties` and `packages/kilo-jetbrains/CHANGELOG.md` from the merged PR before rendering release notes and before `publishPlugin`, so the Marketplace plugin version, Marketplace notes, and GitHub Release use the reviewed metadata.
 
-After Marketplace publishing succeeds, `publish-jetbrains` dispatches `bundle-jetbrains`. The bundled workflow rebuilds the same `jetbrains/v<version>` tag with `-Pkilo.cli.bundled=true`, signs and verifies the all-platform plugin ZIP, then uploads `kilo-code-<version>-bundled.zip` to the same GitHub Release. Bundled builds keep `kilo.cli.pinned=true`; the build flag only embeds the pinned CLI release assets so runtime extracts the bundled current-platform CLI instead of downloading it.
+After Marketplace publishing succeeds, `publish-jetbrains` dispatches `publish-jetbrains-bundled`. The bundled workflow rebuilds the same `jetbrains/v<version>` tag with `-Pkilo.cli.bundled=true`, signs and verifies the all-platform plugin ZIP, then uploads `kilo-code-<version>-bundled.zip` to the same GitHub Release. Bundled builds keep `kilo.cli.pinned=true`; the build flag only embeds the pinned CLI release assets so runtime extracts the bundled current-platform CLI instead of downloading it.
 
 Stable bundled releases also publish the GitHub Pages custom plugin repository XML:
 

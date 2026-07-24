@@ -202,7 +202,7 @@ jobs:
 
       - name: Dispatch bundled GitHub release build
         run: |
-          gh workflow run bundle-jetbrains.yml \
+          gh workflow run publish-jetbrains-bundled.yml \
             --repo "$GITHUB_REPOSITORY" \
             --ref main \
             -f pr="$PR_NUMBER" \

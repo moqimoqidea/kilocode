@@ -37,7 +37,7 @@
 - Review and edit `packages/kilo-jetbrains/CHANGELOG.md` in the generated release PR.
 - Merge the release PR to trigger publish from `jetbrains/vx.y.z-rc.n`, for example `jetbrains/v7.0.1-rc.1`.
 - Watch the `publish-jetbrains` workflow.
-- Confirm the follow-up `bundle-jetbrains` workflow completes and attaches `kilo-code-x.y.z-rc.n-bundled.zip` to the prerelease.
+- Confirm the follow-up `publish-jetbrains-bundled` workflow completes and attaches `kilo-code-x.y.z-rc.n-bundled.zip` to the prerelease.
 - Download and retain the workflow artifact if needed.
 - Confirm the update appears on the JetBrains Marketplace `eap` channel.
 - Confirm the GitHub Release for the `jetbrains/vx.y.z-rc.n` tag exists and contains the JetBrains plugin ZIP asset.
@@ -51,6 +51,6 @@
 - Review and edit `packages/kilo-jetbrains/CHANGELOG.md` in the generated release PR.
 - Merge the release PR to trigger publish from `jetbrains/vx.y.z`.
 - Watch the `publish-jetbrains` workflow.
-- Confirm the follow-up `bundle-jetbrains` workflow completes, attaches `kilo-code-x.y.z-bundled.zip`, and updates `https://kilo-org.github.io/kilocode/jetbrains/updatePlugins.xml`.
+- Confirm the follow-up `publish-jetbrains-bundled` workflow completes, attaches `kilo-code-x.y.z-bundled.zip`, and updates `https://kilo-org.github.io/kilocode/jetbrains/updatePlugins.xml`.
 - Confirm the update appears on the default JetBrains Marketplace channel.
 - Confirm the GitHub Release for the `jetbrains/vx.y.z` tag exists and contains the JetBrains plugin ZIP asset.

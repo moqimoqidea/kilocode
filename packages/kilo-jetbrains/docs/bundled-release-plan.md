@@ -43,7 +43,7 @@ Bundled build command:
 
 ## Phase 3: Bundle Workflow
 
-- Add `.github/workflows/bundle-jetbrains.yml`.
+- Add `.github/workflows/publish-jetbrains-bundled.yml`.
 - Add a final success step to `publish-jetbrains.yml` that dispatches the bundle workflow with the merged release PR and merge commit.
 - The bundle workflow checks out the merged release PR for validation, then checks out the immutable `jetbrains/v<version>` tag, restores reviewed release metadata, builds the bundled variant, signs it, verifies it, and uploads `kilo-code-<version>-bundled.zip` to the same GitHub Release.
 - Bundle ZIPs are produced for RC and stable releases. Only stable releases update the custom plugin repository XML.
